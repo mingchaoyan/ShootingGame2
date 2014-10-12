@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
-        float moveTo = Input.GetAxis ("Horizontal") * speed;
+        float moveTo = Input.GetAxis ("Horizontal") * Time.deltaTime * speed;
         gameObject.transform.Translate (Vector3.right * moveTo);
 
 
