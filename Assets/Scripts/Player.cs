@@ -26,4 +26,12 @@ public class Player : MonoBehaviour
 				if (Input.GetKeyDown ("space"))
 						Instantiate (projectile, position, Quaternion.identity);
 		}
+
+		void OnTriggerEnter (Collider other)
+		{
+				if (other.gameObject.tag == "Enemy") {
+						Enemy enemy = (Enemy)other.gameObject.GetComponent ("Enemy");
+						enemy.InitPositionAndSpeed ();
+				}
+		}
 }

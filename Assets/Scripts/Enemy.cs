@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
 		// Use this for initialization
 		void Start ()
 		{
-				SetPostion ();
+				InitPositionAndSpeed ();
 		}
 	
 		// Update is called once per frame
@@ -21,10 +21,10 @@ public class Enemy : MonoBehaviour
 				float toMove = currentSpeed * Time.deltaTime;
 				transform.Translate (Vector3.down * toMove);
 				if (transform.position.y < -4.5)
-						SetPostion ();
+						InitPositionAndSpeed ();
 	
 		}
-		void SetPostion ()
+		public void InitPositionAndSpeed ()
 		{
 				currentSpeed = Random.Range (minSpeed, maxSpeed);
 				x = Random.Range (-8.5f, 8.5f);
