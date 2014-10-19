@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
 
 				if (transform.position.x >= 7.8f)
 						transform.position = new Vector3 (-7.8f, transform.position.y);
-				else
+				else if (transform.position.x < -7.8f)
 						transform.position = new Vector3 (7.8f, transform.position.y);
 				Vector3 position = new Vector3 (this.gameObject.transform.position.x, this.gameObject.transform.position.y);
 				if (Input.GetKeyDown ("space"))
