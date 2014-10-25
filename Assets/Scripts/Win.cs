@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MainMenu : MonoBehaviour
+public class Win: MonoBehaviour
 {
 
     private string intro = "Press <- and -> to move; Press Space to fire.";
@@ -24,6 +24,9 @@ public class MainMenu : MonoBehaviour
         GUI.Label(new Rect(10, 10, 500, 200), intro);
         if (Input.anyKey)
         {
+            Player.score = 0;
+            Player.lives = 3;
+            Player.missed = 0;
             Application.LoadLevel("Level1");
         }
     }

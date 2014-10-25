@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MainMenu : MonoBehaviour
+public class Lose: MonoBehaviour
 {
 
     private string intro = "Press <- and -> to move; Press Space to fire.";

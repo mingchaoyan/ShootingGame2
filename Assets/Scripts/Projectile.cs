@@ -34,6 +34,8 @@ public class Projectile : MonoBehaviour
             Enemy enemy = (Enemy)other.gameObject.GetComponent("Enemy");
             Instantiate(enemyExplosion, enemy.transform.position, enemy.transform.rotation);
             enemy.InitPositionAndSpeed();
+            if (Player.score >= 500)
+                Application.LoadLevel("Win");
         }
     }
 }

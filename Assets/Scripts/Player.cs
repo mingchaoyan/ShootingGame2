@@ -46,6 +46,13 @@ public class Player : MonoBehaviour
     {
         Instantiate(playerExplostion, transform.position, transform.rotation);
         lives --;
+        if (lives <= 0)
+        {
+            lives = 3;
+            score = 0;
+            missed = 0;
+            Application.LoadLevel("Lose");
+        }
         gameObject.renderer.enabled = false;
         yield return new WaitForSeconds(1.5f);
         gameObject.renderer.enabled = true;
