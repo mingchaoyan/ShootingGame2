@@ -7,6 +7,7 @@ public class Projectile : MonoBehaviour
 {
     public float speed;
     private Transform myTransform;
+    public GameObject enemyExplosion;
 
     // Use this for initialization
     void Start()
@@ -30,6 +31,7 @@ public class Projectile : MonoBehaviour
         {
             Destroy(this.gameObject);
             Enemy enemy = (Enemy)other.gameObject.GetComponent("Enemy");
+            Instantiate(enemyExplosion, enemy.transform.position, enemy.transform.rotation);
             enemy.InitPositionAndSpeed();
         }
     }
