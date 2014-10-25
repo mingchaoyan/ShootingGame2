@@ -7,6 +7,10 @@ public class Player : MonoBehaviour
     public Transform projectile;
     public GameObject playerExplostion;
 
+    public static int score = 0;
+    public static int lives = 3;
+    public static int missed = 0;
+
     // Use this for initialization
     void Start()
     {
@@ -41,8 +45,16 @@ public class Player : MonoBehaviour
     IEnumerator DestroyPlayer()
     {
         Instantiate(playerExplostion, transform.position, transform.rotation);
+        lives --;
         gameObject.renderer.enabled = false;
         yield return new WaitForSeconds(1.5f);
         gameObject.renderer.enabled = true;
+    }
+
+    void OnGUI()
+    {
+        GUI.Label(new Rect(10, 10, 200, 200), "Score:" + score.ToString());
+        GUI.Label(new Rect(10, 30, 200, 200), "Lives:" + lives.ToString());
+        GUI.Label(new Rect(10, 50, 200, 200), "Missed:" + missed.ToString());
     }
 }
