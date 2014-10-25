@@ -33,8 +33,16 @@ public class Player : MonoBehaviour
         if (other.gameObject.tag == "Enemy")
         {
             Enemy enemy = (Enemy)other.gameObject.GetComponent("Enemy");
-            Instantiate(playerExplostion, enemy.transform.position, enemy.transform.rotation);
+            StartCoroutine(DestroyPlayer());
             enemy.InitPositionAndSpeed();
         }
+    }
+
+    IEnumerator DestroyPlayer()
+    {
+        Instantiate(playerExplostion, transform.position, transform.rotation);
+        gameObject.renderer.enabled = false;
+        yield return new WaitForSeconds(1.5f);
+        gameObject.renderer.enabled = true;
     }
 }
