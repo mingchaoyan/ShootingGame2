@@ -1,10 +1,10 @@
 Library/
 Temp/
 obj/
+*.app/
 *.csproj
 *.sln
 *.suo
 *.unityproj
 *.userprefs
-*.app
 *.exe
