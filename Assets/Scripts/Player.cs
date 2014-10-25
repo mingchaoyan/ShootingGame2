@@ -5,6 +5,7 @@ public class Player : MonoBehaviour
 {
     public float speed;
     public Transform projectile;
+    public GameObject playerExplostion;
 
     // Use this for initialization
     void Start()
@@ -32,6 +33,7 @@ public class Player : MonoBehaviour
         if (other.gameObject.tag == "Enemy")
         {
             Enemy enemy = (Enemy)other.gameObject.GetComponent("Enemy");
+            Instantiate(playerExplostion, enemy.transform.position, enemy.transform.rotation);
             enemy.InitPositionAndSpeed();
         }
     }
