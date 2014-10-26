@@ -13,6 +13,18 @@ public class Player : MonoBehaviour
 
     public float projectileOffSet = 1;
 
+    enum State
+    {
+        Playing,
+        Explosing,
+        Invisible
+    }
+    ;
+    private State curState = State.Playing;
+    private float shipMoveToScreenSpeed = 5.0f;
+    private float blinkRate = 0.1f;
+    private int numberOfTimeToBlink = 10;
+    private int blinkCount;
     // Use this for initialization
     void Start()
     {
@@ -22,21 +34,24 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float moveTo = Input.GetAxis("Horizontal") * Time.deltaTime * speed;
-        gameObject.transform.Translate(Vector3.right * moveTo);
+        if (curState != State.Explosing)
+        {
+            float moveTo = Input.GetAxis("Horizontal") * Time.deltaTime * speed;
+            gameObject.transform.Translate(Vector3.right * moveTo);
 
-        if (transform.position.x >= 7.8f)
-            transform.position = new Vector3(-7.8f, transform.position.y);
-        else if (transform.position.x < -7.8f)
-            transform.position = new Vector3(7.8f, transform.position.y);
-        Vector3 position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + projectileOffSet);
-        if (Input.GetKeyDown("space"))
-            Instantiate(projectile, position, Quaternion.identity);
+            if (transform.position.x >= 7.8f)
+                transform.position = new Vector3(-7.8f, transform.position.y);
+            else if (transform.position.x < -7.8f)
+                transform.position = new Vector3(7.8f, transform.position.y);
+            Vector3 position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + projectileOffSet);
+            if (Input.GetKeyDown("space"))
+                Instantiate(projectile, position, Quaternion.identity);
+        }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Enemy")
+        if (other.gameObject.tag == "Enemy" && curState == State.Playing)
         {
             Enemy enemy = (Enemy)other.gameObject.GetComponent("Enemy");
             StartCoroutine(DestroyPlayer());
@@ -46,7 +61,11 @@ public class Player : MonoBehaviour
 
     IEnumerator DestroyPlayer()
     {
+        curState = State.Explosing;
         Instantiate(playerExplostion, transform.position, transform.rotation);
+        gameObject.renderer.enabled = false;
+        transform.position = new Vector3(0f, -4.8f, transform.position.z);
+        yield return new WaitForSeconds(1.5f);
         lives --;
         if (lives <= 0)
         {
@@ -54,10 +73,28 @@ public class Player : MonoBehaviour
             score = 0;
             missed = 0;
             Application.LoadLevel("Lose");
+        } else
+        {
+            while (transform.position.y < -3.2f)
+            {
+                gameObject.renderer.enabled = true;
+                float toMove = shipMoveToScreenSpeed * Time.deltaTime;
+                transform.position = new Vector3(0.0f, transform.position.y + toMove,
+                                                 transform.position.z);
+                yield return 0;
+            }
+            curState = State.Invisible;
+            while (blinkCount < numberOfTimeToBlink)
+            {
+                gameObject.renderer.enabled = !gameObject.renderer.enabled;
+                if (gameObject.renderer.enabled == true)
+                    blinkCount++;
+                yield return new WaitForSeconds(blinkRate);    
+            }
+            blinkCount = 0;
+            curState = State.Playing;
         }
-        gameObject.renderer.enabled = false;
-        yield return new WaitForSeconds(1.5f);
-        gameObject.renderer.enabled = true;
+
     }
 
     void OnGUI()
