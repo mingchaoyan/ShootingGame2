@@ -10,7 +10,7 @@ ShootingGame2
 --------
 基于Unity3d 4.3.4f1，使用最原始的GUI制作简单的界面按钮。用简单的物理碰撞处理子弹、敌人、主角之间的撞击，并实现了简单的射击音效，爆炸音效和特效。飞船飞行的效果使用两个平面循环模拟。
 
-同ShootingGame(https://github.com/mingchaoyan/ShootingGame/blob/master/GameShots/begin.png)区别
+同[ShootingGame](https://github.com/mingchaoyan/ShootingGame/blob/master/GameShots/begin.png)区别
 -----------------
 1. ShootingGame的主摄像头使用Perspectivet投影方式，ShootingGame2的主摄像头使用Orthographic投影方式
 
