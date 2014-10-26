@@ -32,6 +32,8 @@ public class Projectile : MonoBehaviour
             Destroy(this.gameObject);
             Player.score += 100;
             Enemy enemy = (Enemy)other.gameObject.GetComponent("Enemy");
+            enemy.minSpeed ++;
+            enemy.maxSpeed ++;
             Instantiate(enemyExplosion, enemy.transform.position, enemy.transform.rotation);
             enemy.InitPositionAndSpeed();
             if (Player.score >= 500)
