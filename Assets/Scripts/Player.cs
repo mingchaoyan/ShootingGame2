@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
     public static int lives = 3;
     public static int missed = 0;
 
+    public float projectileOffSet = 1;
+
     // Use this for initialization
     void Start()
     {
@@ -27,7 +29,7 @@ public class Player : MonoBehaviour
             transform.position = new Vector3(-7.8f, transform.position.y);
         else if (transform.position.x < -7.8f)
             transform.position = new Vector3(7.8f, transform.position.y);
-        Vector3 position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y);
+        Vector3 position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + projectileOffSet);
         if (Input.GetKeyDown("space"))
             Instantiate(projectile, position, Quaternion.identity);
     }
