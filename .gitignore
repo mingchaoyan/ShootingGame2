@@ -8,3 +8,4 @@ obj/
 *.unityproj
 *.userprefs
 *.exe
+.DS_store
